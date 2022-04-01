@@ -1,0 +1,238 @@
+#ifndef PROJECT_CLASSES
+#define PROJECT_CLASSES
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+class Complex {
+private:
+	double im, re;
+public:
+	void Set_complex(int temp_re, int temp_im);
+	Complex Plus(Complex a, Complex b);
+	Complex Compos(Complex a, Complex b);
+	Complex Separ(Complex a, Complex b);
+	void Print_complex(Complex a);
+};
+
+/////////////////////////////////////////////
+
+class Vector {
+private:
+	int x, y, z;
+	double mod;
+public:
+	void Set_vector(int a, int b, int c);
+	double Foo_module(Vector a);
+	void module();
+	Vector Vect_compos(Vector a, Vector b);
+	void Print_vector(Vector a);
+};
+
+/////////////////////////////////////////////
+
+class Circle {
+private:
+	int x_cent, y_cent, x_var, y_var, radius;
+public:
+	void Set_circle_cent(int temp_x_cent, int temp_y_cent, int x_var, int y_var);
+	int Radius(Circle a);
+	void Print_radius();
+
+};
+#endif  
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include "Header_3_1.h"
+void Complex::Set_complex(int temp_re, int temp_im) {
+	re = temp_re;
+	im = temp_im;
+}
+
+Complex Complex::Plus(Complex a, Complex b) {
+	Complex c;
+	c.re = a.re + b.re;
+	c.im = a.im + b.im;
+	return c;
+}
+Complex Complex::Compos(Complex a, Complex b) {
+	Complex c;
+	c.re = (a.re * b.re) - (a.im * b.im);
+	c.im = (a.im * b.re) + (a.re * b.im);
+	return c;
+}
+
+Complex Complex::Separ(Complex a, Complex b) {
+	Complex c;
+	c.re = (a.re * b.re + a.im * b.im) / (pow(b.re, 2) + pow(b.im, 2));
+	c.im = (a.im * b.re - a.re * b.im) / (pow(b.re, 2) + pow(b.im, 2));
+	return c;
+}
+
+void Complex::Print_complex(Complex a) {
+	if (a.im >= 0) {
+		cout << a.re <<"+" << abs(a.im)<< "i" << endl;
+	}
+	else {
+		cout << a.re <<"-"<<abs(a.im) << "i" << endl;
+	}
+}
+/////////////////////////////////////////////////////////
+void Vector:: Set_vector(int a, int b, int c) {
+	x = a;
+	y = b;
+	z = c;
+}
+
+double Vector:: Foo_module(Vector a) {
+	mod = sqrt(pow(a.x, 2) + pow(a.y, 2) + pow(a.z, 2));
+	return mod;
+}
+
+void Vector:: module() {
+	cout << mod<<" - модуль числа"<<endl;
+}
+
+Vector Vector::Vect_compos(Vector a, Vector b) {
+	Vector c;
+	c.x = (a.y * b.z) - (b.y * a.z);
+	c.y = -((a.x * b.z) - (b.x * a.z));
+	c.z = (a.x * b.y) - (b.x * a.y);
+	return c;
+}
+
+void Vector:: Print_vector(Vector a) {
+	cout << "(" << a.x << ", " << a.y << ", " << a.z << ")" << endl;
+}
+
+//////////////////////////////////////////////////////////
+
+void Circle::Set_circle_cent(int temp_x_cent, int temp_y_cent, int temp_x_var, int temp_y_var) {
+	x_cent = temp_x_cent;
+	y_cent = temp_y_cent;
+	x_var = temp_x_var;
+	y_var = temp_y_var;
+}
+
+int Circle::Radius(Circle a) {
+	int abccise;
+	if (a.x_var >= a.x_cent) {
+		abccise = x_var - x_cent;
+	}
+	if (a.x_var <= a.x_cent) {
+		abccise = x_cent - x_var;
+	}
+	int ordinate;
+	if (a.y_var >= a.y_cent) {
+		ordinate = y_var- y_cent;
+	}
+	if (a.y_var <= a.y_cent) {
+		ordinate = y_cent - y_var;
+	}
+	radius = sqrt(pow(abccise, 2) + pow(ordinate, 2));
+	return radius;
+}
+
+void Circle:: Print_radius() {
+	cout << "Радиус круга = " << radius << endl;
+}
+
+
+
+
+
+
+
+
+#include"Header_3_1.h"
+
+int main() {
+	setlocale(LC_ALL, "RUS");
+	int real_1, imag_1, real_2, imag_2;
+	cout << "Введите первое комплексное число: " << endl;
+	cout<<"re = "; 
+	cin >> real_1;
+	cout << "im = "; 
+	cin >> imag_1;
+	Complex first_complex, second_complex;
+	first_complex.Set_complex(real_1, imag_1);
+	cout << "Введите второе комплексное число: " << endl;
+	cout << "re = ";
+	cin >> real_2;
+	cout << "im = ";
+	cin >> imag_2;
+	second_complex.Set_complex(real_2, imag_2);
+
+	Complex Summ = Summ.Plus(first_complex, second_complex);
+	cout << "Сумма = "; Summ.Print_complex(Summ);
+
+	Complex Compos = Compos.Compos(first_complex, second_complex);
+	cout << "Произведение = "; Compos.Print_complex(Compos);
+
+	Complex Separation = Separation.Separ(first_complex, second_complex);
+	cout << "Частное = "; Separation.Print_complex(Separation);
+	cout << endl << endl;
+
+	///////////////////////////////////////////////////////////////////////////
+
+	int ax, ay, az;
+
+	cout << "Введите координаты первого вектора: " << endl;
+	cout << "x = " ; cin >> ax; cout << "y = "; cin >> ay; cout << "z = "; cin >> az;
+	Vector a;
+	a.Set_vector(ax, ay, az);
+	double Mod_a = a.Foo_module(a);
+	a.module();
+
+	int bx, by, bz;
+	cout << "Введите координаты второго вектора: " << endl;
+	cout << "x = "; cin >> bx; cout << "y = "; cin >> by; cout << "z = "; cin >> bz;
+	Vector b;
+	b.Set_vector(bx, by, bz);
+	double Mod_b = b.Foo_module(a);
+	b.module();
+
+	float corn;
+	cout << "Введите угол между векторами: ";
+	cin >> corn;
+	float Scaliarn = Mod_a * Mod_b * cos(corn);
+	cout << "Скалярное произведение = "<< Scaliarn << endl;
+
+	Vector Vector_composition;
+	Vector_composition = Vector_composition.Vect_compos(a, b);
+	cout << "Векторное произведение = ";  
+	Vector_composition.Print_vector(Vector_composition);
+	cout << endl << endl;
+
+	/////////////////////////////////////////////////////////////////////////////
+
+	cout << "Введите координаты центра круга = "<<endl;
+	int x_centre, y_centre;
+	cout << "x = "; cin >> x_centre;
+	cout << "y = "; cin >> y_centre;
+	cout << "Введиет координаты произвольной точки, через которую должен проходить круг: "<<endl;
+	int x_various, y_various;
+	cout<< "x = "; cin >> x_various;
+	cout <<"y = "; cin >> y_various;
+	Circle Object;
+	Object.Set_circle_cent(x_centre, y_centre, x_various, y_various);
+	int radius = Object.Radius(Object);
+	Object.Print_radius();
+
+	double S = 3.14 * pow(radius, 2);
+	cout << "Площадь круга = "<< S << endl;
+	double Len = 2 * 3.14 * radius;
+	cout << "Длина круга = " << Len << endl;
+	return 0;
+}
